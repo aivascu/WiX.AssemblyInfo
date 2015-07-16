@@ -30,7 +30,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Sample.TestApp\Sample.TestApp.csproj">
+    <ProjectReference Include="..\Sample.TestApp\Sample.TestApp.csproj">
       <Name>Sample.TestApp</Name>
       <Project>{898087cc-5af4-4b8f-a084-4e1f416ababb}</Project>
       <Private>True</Private>
