@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WiX.AssemblyInfo</id>
-        <version>$version$</version>
+        <version>0.0.1</version>
         <title>WiX AssemblyInfo Preprocessor Extension</title>
         <authors>Andrei Ivascu</authors>
         <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
@@ -13,11 +13,14 @@
         <dependencies>
             <dependency id="WiX" version="3.9.2" />
         </dependencies>
+        <references>
+            <group>
+                <reference file="WixAssemblyInfoExt.dll" />
+            </group>
+        </references>
     </metadata>
-	<files>
-		<!--lib\-->
-		<file src="\lib" target="\lib" />
-		<!--content-->
-		<file src="\content" target="\content" />
-	</files>
+    <files>
+        <!--lib\-->
+        <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib" />
+    </files>
 </package>

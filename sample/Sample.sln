@@ -7,6 +7,11 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Sample.Setup", "Sample.Setu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.TestApp", "Sample.TestApp\Sample.TestApp.csproj", "{898087CC-5AF4-4B8F-A084-4E1F416ABABB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9FE97A0E-F99D-4B75-92D0-536B09F676F2}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
