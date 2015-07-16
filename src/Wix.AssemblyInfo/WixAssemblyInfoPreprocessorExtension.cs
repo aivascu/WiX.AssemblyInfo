@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
-using WixAssemblyInfoExtension.Utility;
+using Wix.AssemblyInfo.Utility;
 
-namespace WixAssemblyInfoExtension
+namespace Wix.AssemblyInfo
 {
     public class WixAssemblyInfoPreprocessorExtension : PreprocessorExtension
     {

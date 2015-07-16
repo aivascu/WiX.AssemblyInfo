@@ -1,7 +1,7 @@
 ﻿using System;
-using WixAssemblyInfoExtension;
+using Wix.AssemblyInfo;
 
-namespace TestApp
+namespace Sample.TestApp
 {
     internal class Program
     {
@@ -9,12 +9,12 @@ namespace TestApp
         {
             var obj = new WixAssemblyInfoPreprocessorExtension();
 
-            var fileVersionArgs = new[] { @"WixAssemblyInfoExtension.dll" };
+            var fileVersionArgs = new[] { @"WixAssemblyInfoExt.dll" };
             var fileVersionCompanyName = obj.EvaluateFunction("fileVersion", "CompanyName", fileVersionArgs);
             Console.WriteLine("FileVersionInfo:");
             Console.WriteLine("CompanyName: {0}", fileVersionCompanyName);
 
-            var assemblyInfoArgs = new[] { @"WixAssemblyInfoExtension.dll", "System.Reflection.AssemblyCompanyAttribute" };
+            var assemblyInfoArgs = new[] { @"WixAssemblyInfoExt.dll", "System.Reflection.AssemblyCompanyAttribute" };
             var assemblyCompanyName = obj.EvaluateFunction("assemblyInfo", "Company", assemblyInfoArgs);
             Console.WriteLine("AssemblyInfo:");
             Console.WriteLine("Company: {0}", assemblyCompanyName);

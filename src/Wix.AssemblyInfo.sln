@@ -3,50 +3,47 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WixAssemblyInfoExtension", "WixAssemblyInfoExtension\WixAssemblyInfoExtension.csproj", "{B08D9E52-612D-4F12-9023-F239D431A06F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7DD2E8A-46CE-4715-A077-2213750E6570}"
 	ProjectSection(SolutionItems) = preProject
 		..\LICENSE = ..\LICENSE
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{898087CC-5AF4-4B8F-A084-4E1F416ABABB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{49041F65-EF29-4E8A-B048-26235211D380}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
-		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WixAssemblyInfoExtension.NuGet", "WixAssemblyInfoExtension.NuGet\WixAssemblyInfoExtension.NuGet.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfo", "Wix.AssemblyInfo\Wix.AssemblyInfo.csproj", "{B08D9E52-612D-4F12-9023-F239D431A06F}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{898087CC-5AF4-4B8F-A084-4E1F416ABABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{898087CC-5AF4-4B8F-A084-4E1F416ABABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{898087CC-5AF4-4B8F-A084-4E1F416ABABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{898087CC-5AF4-4B8F-A084-4E1F416ABABB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

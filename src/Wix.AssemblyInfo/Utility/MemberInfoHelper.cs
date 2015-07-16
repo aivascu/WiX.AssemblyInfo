@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace WixAssemblyInfoExtension.Utility
+namespace Wix.AssemblyInfo.Utility
 {
     public static class MemberInfoHelper
     {
