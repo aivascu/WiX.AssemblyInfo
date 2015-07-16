@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WiX.AssemblyInfo</id>
+        <version>$version$</version>
+        <title>WiX AssemblyInfo Preprocessor Extension</title>
+        <authors>Andrei Ivascu</authors>
+        <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>https://github.com/aivascu/WiX.AssemblyInfo</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A simple WiX preprocessor extension for reading assembly info from compiled binaries.</description>
+        <tags>WiX Preprocessor Extension AssemblyInfo</tags>
+        <dependencies>
+            <dependency id="WiX" version="3.9.2" />
+        </dependencies>
+    </metadata>
+	<files>
+		<!--lib\-->
+		<file src="\lib" target="\lib" />
+		<!--content-->
+		<file src="\content" target="\content" />
+	</files>
+</package>
