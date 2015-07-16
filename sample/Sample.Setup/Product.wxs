@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?define Manufacturer="$(fileVersion.CompanyName($(var.Sample.App.TargetPath)))"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="Sample.Setup" Language="1033" Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="7BAE8537-9656-46AD-BC17-8DB03C6FC3F4">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+
+    <Feature Id="ProductFeature" Title="Sample.Setup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="ManufacturerInstallFolder" Name="$(var.Manufacturer)">
+          <Directory Id="INSTALLFOLDER" Name="Sample.Setup" />
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="AppComponent" Guid="C00AEB46-E91A-4DDD-8936-ADEE44A6994C">
+        <File Id="Sample.App.exe" Name="Sample.App.exe" Source="$(var.Sample.App.TargetPath)" Vital="yes" KeyPath="yes" />
+      </Component>
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+    </ComponentGroup>
+  </Fragment>
+</Wix>
