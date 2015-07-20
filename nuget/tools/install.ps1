@@ -7,9 +7,11 @@ param($installPath, $toolsPath, $package, $project)
 # $package is a reference to the package object.
 # $project is a reference to the project the package was installed to.
 
-$reference = $project.ProjectItems | Where-Object { $_.Properties.Item("Filename").Value -eq "Service.cs" -and  $_.ProjectItems.Count -eq 0 }
-
-if($reference -eq $null)
+# Determine if the target project is a WiX project
+if([string]::Compare($project.Project.ProjectType, "WiX", $true) -eq 0)
 {
-    
+    $fullPath = "{0}\lib\{1}" -f $installPath, "WixAssemblyInfoExt.dll"
+    $references = $DTE.Solution.Projects|Select-Object -Expand ProjectItems | Where-Object{$_.Name -eq 'References'}
+    $references.ProjectItems.AddFromFile($fullPath)
+    Write-Host $fullPath
 }

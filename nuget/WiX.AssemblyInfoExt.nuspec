@@ -10,9 +10,6 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A simple WiX preprocessor extension for reading assembly info from compiled binaries.</description>
         <tags>WiX Preprocessor Extension AssemblyInfo</tags>
-        <dependencies>
-            <dependency id="WiX" version="3.9.2" />
-        </dependencies>
         <references>
             <group>
                 <reference file="WixAssemblyInfoExt.dll" />
@@ -22,5 +19,6 @@
     <files>
         <!--lib\-->
         <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib" />
+        <file src="tools\**\*.*" target="tools" />
     </files>
 </package>
