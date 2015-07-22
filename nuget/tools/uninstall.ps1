@@ -8,5 +8,9 @@ param($installPath, $toolsPath, $package, $project)
 # $project is a reference to the project the package was installed to.
 if([string]::Compare($project.Project.ProjectType, "WiX", $true) -eq 0)
 {
-    $DTE.Solution.Projects|Select-Object -Expand ProjectItems|Where-Object{$_.Name -eq 'References'} |Select-Object -Expand ProjectItems|Where-Object{$_.Name -eq 'WixAssemblyInfoExt'}|ForEach-Object {$_.Remove()}
+    $References = $DTE.Solution.Projects | Select-Object -Expand ProjectItems | Where-Object{$_.Name -eq 'References'}
+    $PackageReference = $References | Select-Object -Expand ProjectItems | Where-Object{ $_.Name -eq 'WixAssemblyInfoExt' }
+    if($PackageReference -ne $null) {
+        $PackageReference | ForEach-Object { $_.Remove() }
+    }
 }
