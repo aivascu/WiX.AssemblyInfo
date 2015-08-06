@@ -57,9 +57,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IsNullOrEmptyExtensionTests.cs" />
-    <Compile Include="IsNullOrWhitespaceExtensionTests.cs" />
-    <Compile Include="MemberInfoHelperTests.cs" />
+    <Compile Include="Utility\IsNullOrEmptyExtensionTests.cs" />
+    <Compile Include="Utility\IsNullOrWhitespaceExtensionTests.cs" />
+    <Compile Include="Utility\MemberInfoHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
