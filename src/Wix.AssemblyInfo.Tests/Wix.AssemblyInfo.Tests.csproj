@@ -58,6 +58,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="IsNullOrEmptyExtensionTests.cs" />
+    <Compile Include="IsNullOrWhitespaceExtensionTests.cs" />
+    <Compile Include="MemberInfoHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
