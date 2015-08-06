@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7DD2E8A-46CE-4715-A077-2213750E6570}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{49041F
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfo", "Wix.AssemblyInfo\Wix.AssemblyInfo.csproj", "{B08D9E52-612D-4F12-9023-F239D431A06F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfo.Tests", "Wix.AssemblyInfo.Tests\Wix.AssemblyInfo.Tests.csproj", "{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,18 @@ Global
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B08D9E52-612D-4F12-9023-F239D431A06F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Debug|x86.Build.0 = Debug|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|x86.ActiveCfg = Release|Any CPU
+		{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
