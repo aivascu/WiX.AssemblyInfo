@@ -14,6 +14,7 @@ namespace Wix.AssemblyInfo.Tests
             var result = testString.IsNullOrWhiteSpace();
 
             Assert.IsTrue(result);
+            Assert.AreEqual(testString, "     ", "The test string has changed!");
         }
 
         [Test]
@@ -24,6 +25,7 @@ namespace Wix.AssemblyInfo.Tests
             var result = testString.IsNullOrWhiteSpace();
 
             Assert.IsTrue(result);
+            Assert.Null(testString, "The test string has changed!");
         }
 
         [Test]
@@ -34,6 +36,7 @@ namespace Wix.AssemblyInfo.Tests
             var result = testString.IsNullOrWhiteSpace();
 
             Assert.IsFalse(result);
+            Assert.AreEqual(testString, "  not empty   ", "The test string has changed!");
         }
     }
 }

@@ -12,7 +12,9 @@ namespace Wix.AssemblyInfo.Tests
         {
             public string TestMember { get; set; }
 
-            public void TestMethod() { }
+            public void TestMethod()
+            {
+            }
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace Wix.AssemblyInfo.Tests
 
             var attributeName = MemberInfoHelper.GetMemberName(() => testObject);
 
-            Assert.AreEqual(attributeName, "testObject", "Something went wrong");
+            Assert.AreEqual(attributeName, "testObject", "This is not the object name you are looking for!");
         }
 
         [Test]
@@ -63,7 +65,7 @@ namespace Wix.AssemblyInfo.Tests
 
             var attributeName = MemberInfoHelper.GetMemberName(expression);
 
-            Assert.AreNotEqual(attributeName, "expression", "Something went wrong");
+            Assert.AreNotEqual(attributeName, "expression", "Exception not triggered!");
         }
     }
 }
