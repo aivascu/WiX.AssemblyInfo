@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
@@ -12,76 +11,67 @@ namespace Wix.AssemblyInfo
     {
         private static readonly string[] ExtPrefixes = { "fileVersion", "assemblyInfo" };
 
-        public override string[] Prefixes
-        {
-            get { return ExtPrefixes; }
-        }
+        public override string[] Prefixes => ExtPrefixes;
 
         public override string EvaluateFunction(string prefix, string function, string[] args)
         {
             if (string.Compare(prefix, "fileVersion", StringComparison.OrdinalIgnoreCase) == 0)
             {
-                string filePath;
-                if (!args.IsNullOrEmpty() && FileExists(args[0], out filePath))
-                {
-                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
-                    return GetPropertyValueByName(fileVersionInfo, function).ToString();
-                }
+                return EvaluateFileVersionInfo(function, args[0]);
             }
 
             if (string.Compare(prefix, "assemblyInfo", StringComparison.OrdinalIgnoreCase) == 0)
             {
-                string filePath;
-                // Abort if parameters are invalid
-                if (args.IsNullOrEmpty() || args[1].IsNullOrWhiteSpace() || !FileExists(args[0], out filePath))
-                {
-                    throw new ArgumentNullException(MemberInfoHelper.GetMemberName(() => args), "AssemblyInfo arguments not specified!");
-                }
-
-                var attributeType = Type.GetType(args[1]);
-                if (attributeType == null || !attributeType.IsSubclassOf(typeof(Attribute)))
-                {
-                    throw new InvalidOperationException(string.Format("{0} is not a valid assembly Attribute!", args[1]));
-                }
-
-                var assembly = Assembly.LoadFile(filePath);
-                var attribute = assembly.GetCustomAttributes(attributeType, false).FirstOrDefault();
-                if (attribute == null)
-                {
-                    throw new InvalidOperationException(string.Format("The specified Assembly does not contain an attribute of type {0}", args[1]));
-                }
-                return GetPropertyValueByName(attribute, function).ToString();
+                return EvaluateAssemblyInfo(function, args[0], args[1]);
             }
 
             return null;
         }
 
-        public static bool FileExists(string filePath, out string absolutePath)
+        private static string EvaluateFileVersionInfo(string function, string filePath)
         {
             if (filePath.IsNullOrWhiteSpace())
             {
-                throw new ArgumentNullException(MemberInfoHelper.GetMemberName(() => filePath), "File name not specified");
+                throw new ArgumentNullException(nameof(filePath), "Attribute has not been specified!");
             }
 
-            if (!File.Exists(filePath))
+            string absoluteFilePath;
+            if (PathHelper.TryPath(filePath, out absoluteFilePath))
             {
-                throw new FileNotFoundException(string.Format("File {0} does not exist", Path.GetFileName(filePath)), filePath);
+                var fileVersionInfo = FileVersionInfo.GetVersionInfo(absoluteFilePath);
+                return ReflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
             }
 
-            absolutePath = !Path.IsPathRooted(filePath) ? Path.GetFullPath(filePath) : filePath;
-            return true;
+            return string.Empty;
         }
 
-        private static object GetPropertyValueByName(object queriedObject, string propertyName)
+        private static string EvaluateAssemblyInfo(string function, string filePath, string attributeTypeName)
         {
-            var propertyInfo = queriedObject.GetType().GetProperty(propertyName);
-
-            if (propertyInfo == null)
+            // Abort if parameters are invalid
+            if (attributeTypeName.IsNullOrWhiteSpace())
             {
-                throw new InvalidOperationException(string.Format("Unable to find property {0} in {1}", propertyName, queriedObject.GetType().FullName));
+                throw new ArgumentNullException(nameof(attributeTypeName), "The attribute name has not been specified!");
             }
 
-            return propertyInfo.GetValue(queriedObject, null);
+            string absoluteFilePath;
+            if (PathHelper.TryPath(filePath, out absoluteFilePath))
+            {
+                var attributeType = Type.GetType(attributeTypeName);
+                if (attributeType == null || !attributeType.IsSubclassOf(typeof(Attribute)))
+                {
+                    throw new InvalidOperationException($"{attributeTypeName} is not a valid assembly Attribute!");
+                }
+
+                var assembly = Assembly.ReflectionOnlyLoadFrom(absoluteFilePath);
+                var attribute = assembly.GetCustomAttributes(attributeType, false).FirstOrDefault();
+                if (attribute == null)
+                {
+                    throw new InvalidOperationException($"The specified Assembly does not contain an attribute of type {attributeTypeName}!");
+                }
+                return ReflectionHelper.GetPropertyValueByName(attribute, function).ToString();
+            }
+
+            return string.Empty;
         }
     }
 }

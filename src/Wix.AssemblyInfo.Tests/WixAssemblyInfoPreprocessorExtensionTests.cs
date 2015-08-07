@@ -5,5 +5,6 @@ namespace Wix.AssemblyInfo.Tests
     [TestFixture]
     public class WixAssemblyInfoPreprocessorExtensionTests
     {
+        
     }
 }

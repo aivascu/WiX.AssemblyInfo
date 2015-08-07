@@ -66,8 +66,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\IsNullOrEmptyExtension.cs" />
-    <Compile Include="Utility\MemberInfoHelper.cs" />
     <Compile Include="Utility\IsNullOrWhitespaceExtension.cs" />
+    <Compile Include="Utility\PathHelper.cs" />
+    <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="WixAssemblyInfoExtension.cs" />
     <Compile Include="WixAssemblyInfoPreprocessorExtension.cs" />
   </ItemGroup>
