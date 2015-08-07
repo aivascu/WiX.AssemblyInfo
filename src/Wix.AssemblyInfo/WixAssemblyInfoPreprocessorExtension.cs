@@ -56,7 +56,7 @@ namespace Wix.AssemblyInfo
             return null;
         }
 
-        private static bool FileExists(string filePath, out string absolutePath)
+        public static bool FileExists(string filePath, out string absolutePath)
         {
             if (filePath.IsNullOrWhiteSpace())
             {

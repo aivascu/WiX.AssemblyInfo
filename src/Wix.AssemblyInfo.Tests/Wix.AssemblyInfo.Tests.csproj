@@ -61,6 +61,7 @@
     <Compile Include="Utility\IsNullOrWhitespaceExtensionTests.cs" />
     <Compile Include="Utility\MemberInfoHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WixAssemblyInfoPreprocessorExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wix.AssemblyInfo\Wix.AssemblyInfo.csproj">

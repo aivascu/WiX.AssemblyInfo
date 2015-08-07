@@ -1,4 +1,6 @@
-﻿namespace Wix.AssemblyInfo.Utility
+﻿using System;
+
+namespace Wix.AssemblyInfo.Utility
 {
     public static class IsNullOrWhitespaceExtension
     {

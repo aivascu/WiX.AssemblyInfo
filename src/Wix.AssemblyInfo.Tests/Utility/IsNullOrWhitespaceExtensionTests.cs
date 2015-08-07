@@ -7,7 +7,7 @@ namespace Wix.AssemblyInfo.Tests
     public class IsNullOrWhitespaceExtensionTests
     {
         [Test]
-        public void EmptyString_NoException()
+        public void WhiteSpaceString_NoException()
         {
             string testString = "     ";
 
@@ -26,6 +26,17 @@ namespace Wix.AssemblyInfo.Tests
 
             Assert.IsTrue(result);
             Assert.Null(testString, "The test string has changed!");
+        }
+
+        [Test]
+        public void EmptyString_NoException()
+        {
+            string testString = string.Empty;
+
+            var result = testString.IsNullOrWhiteSpace();
+
+            Assert.IsTrue(result);
+            Assert.AreEqual(testString, string.Empty, "The test string has changed!");
         }
 
         [Test]
