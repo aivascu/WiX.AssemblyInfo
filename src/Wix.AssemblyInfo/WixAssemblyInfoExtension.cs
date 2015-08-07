@@ -16,11 +16,6 @@ namespace Wix.AssemblyInfo
             this.versionPreprocessorExtension = versionPreprocessorExtension;
         }
 
-        public override PreprocessorExtension PreprocessorExtension
-        {
-            get {
-                return versionPreprocessorExtension ?? new WixAssemblyInfoPreprocessorExtension();
-            }
-        }
+        public override PreprocessorExtension PreprocessorExtension => versionPreprocessorExtension ?? new WixAssemblyInfoPreprocessorExtension();
     }
 }

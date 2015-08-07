@@ -9,18 +9,18 @@ namespace Wix.AssemblyInfo
 {
     public class WixAssemblyInfoPreprocessorExtension : PreprocessorExtension
     {
-        private static readonly string[] ExtPrefixes = { "fileVersion", "assemblyInfo" };
+        private static readonly string[] ExtPrefixes = { ExtensionPrefixes.FileVersionPrefix, ExtensionPrefixes.AssemblyInfoPrefix };
 
         public override string[] Prefixes => ExtPrefixes;
 
         public override string EvaluateFunction(string prefix, string function, string[] args)
         {
-            if (string.Compare(prefix, "fileVersion", StringComparison.OrdinalIgnoreCase) == 0)
+            if (string.Compare(prefix, ExtensionPrefixes.FileVersionPrefix, StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return EvaluateFileVersionInfo(function, args[0]);
             }
 
-            if (string.Compare(prefix, "assemblyInfo", StringComparison.OrdinalIgnoreCase) == 0)
+            if (string.Compare(prefix, ExtensionPrefixes.AssemblyInfoPrefix, StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return EvaluateAssemblyInfo(function, args[0], args[1]);
             }
@@ -32,7 +32,7 @@ namespace Wix.AssemblyInfo
         {
             if (filePath.IsNullOrWhiteSpace())
             {
-                throw new ArgumentNullException(nameof(filePath), "Attribute has not been specified!");
+                throw new ArgumentNullException(nameof(filePath), "The attribute name has not been specified!");
             }
 
             string absoluteFilePath;
@@ -47,7 +47,6 @@ namespace Wix.AssemblyInfo
 
         private static string EvaluateAssemblyInfo(string function, string filePath, string attributeTypeName)
         {
-            // Abort if parameters are invalid
             if (attributeTypeName.IsNullOrWhiteSpace())
             {
                 throw new ArgumentNullException(nameof(attributeTypeName), "The attribute name has not been specified!");

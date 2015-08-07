@@ -14,7 +14,7 @@ namespace Wix.AssemblyInfo.Utility
 
             if (!File.Exists(filePath))
             {
-                throw new FileNotFoundException($"File {Path.GetFileName(filePath)} does not exist", filePath);
+                throw new FileNotFoundException("The specified file does not exist!", filePath);
             }
 
             absolutePath = !Path.IsPathRooted(filePath) ? Path.GetFullPath(filePath) : filePath;
