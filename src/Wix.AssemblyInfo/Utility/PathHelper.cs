@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Wix.AssemblyInfo.Utility
+namespace Wix.AssemblyInfoExtension.Utility
 {
     internal static class PathHelper
     {

@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
-using Wix.AssemblyInfo.Utility;
+using Wix.AssemblyInfoExtension.Utility;
 
-namespace Wix.AssemblyInfo
+namespace Wix.AssemblyInfoExtension
 {
     public class WixAssemblyInfoPreprocessorExtension : PreprocessorExtension
     {
@@ -35,14 +35,15 @@ namespace Wix.AssemblyInfo
                 throw new ArgumentNullException(nameof(filePath), "The attribute name has not been specified!");
             }
 
-            string absoluteFilePath;
+            string absoluteFilePath = null;
+            string result = string.Empty;
             if (PathHelper.TryPath(filePath, out absoluteFilePath))
             {
                 var fileVersionInfo = FileVersionInfo.GetVersionInfo(absoluteFilePath);
-                return ReflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
+                result = ReflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
             }
 
-            return string.Empty;
+            return result;
         }
 
         private static string EvaluateAssemblyInfo(string function, string filePath, string attributeTypeName)
@@ -53,24 +54,53 @@ namespace Wix.AssemblyInfo
             }
 
             string absoluteFilePath;
+            string result = string.Empty;
             if (PathHelper.TryPath(filePath, out absoluteFilePath))
             {
-                var attributeType = Type.GetType(attributeTypeName);
+                var assembly = Assembly.ReflectionOnlyLoadFrom(absoluteFilePath);
+
+                //TODO Check if there are any referenced assemblies
+                var dependencies = assembly.GetReferencedAssemblies();
+                var nonSystemDependencies = (from dependency in dependencies
+                                                where dependency.Name != "<In Memory Module>"
+                                                where !dependency.FullName.StartsWith("System")
+                                                where !dependency.FullName.StartsWith("Microsoft")
+                                                where !dependency.FullName.Contains("CppCodeProvider")
+                                                where !dependency.FullName.Contains("WebMatrix")
+                                                where !dependency.FullName.Contains("SMDiagnostics")
+                                                where !dependency.CodeBase.IsNullOrWhiteSpace()
+                                                select dependency).ToList();
+
+                foreach (var dependency in nonSystemDependencies)
+                {
+                    //TODO load dependencies to the app domain
+                }
+
+                Type attributeType;
+                if (attributeTypeName.StartsWith("System") || attributeTypeName.StartsWith("Microsoft"))
+                {
+                    attributeType = Type.GetType(attributeTypeName);
+                }
+                else
+                {
+                    attributeType = assembly.GetType(attributeTypeName);
+                }
+
                 if (attributeType == null || !attributeType.IsSubclassOf(typeof(Attribute)))
                 {
                     throw new InvalidOperationException($"{attributeTypeName} is not a valid assembly Attribute!");
                 }
 
-                var assembly = Assembly.ReflectionOnlyLoadFrom(absoluteFilePath);
                 var attribute = assembly.GetCustomAttributes(attributeType, false).FirstOrDefault();
                 if (attribute == null)
                 {
                     throw new InvalidOperationException($"The specified Assembly does not contain an attribute of type {attributeTypeName}!");
                 }
-                return ReflectionHelper.GetPropertyValueByName(attribute, function).ToString();
+
+                result = ReflectionHelper.GetPropertyValueByName(attribute, function).ToString();
             }
 
-            return string.Empty;
+            return result;
         }
     }
 }

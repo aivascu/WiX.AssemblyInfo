@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Wix.AssemblyInfo.Tests
+namespace Wix.AssemblyInfoExtension.Tests
 {
     [TestFixture]
     public class WixAssemblyInfoPreprocessorExtensionTests
@@ -9,15 +9,44 @@ namespace Wix.AssemblyInfo.Tests
         [TestCase("", "", "")]
         [TestCase(null, null, null)]
         [TestCase("Wrong", "Wrong", "Wrong")]
-        [TestCase("", "AssemblyTitle", @".\TestAssembly.dll")]
-        [TestCase(null, "AssemblyTitle", @".\TestAssembly.dll")]
-        [TestCase("   ", "AssemblyTitle", @".\TestAssembly.dll")]
-        [TestCase("myWrongPrefix", "AssemblyTitle", @".\TestAssembly.dll")]
-        public void TestPrefix(string prefix, string function, string assemblyPath)
+        [TestCase("", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        [TestCase(null, "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        [TestCase("   ", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        [TestCase("myWrongPrefix", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        public void TestWrongPrefix(string prefix, string function, string assemblyPath)
         {
             var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath
+            };
+
+            var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
+
+            Assert.IsNull(result, "The prefix somehow got processed");
+        }
+
+        [Test]
+        [TestCase("fileVersion", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
+        {
+            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
+            string[] args = {
+                assemblyPath
+            };
+
+            var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
+
+            Assert.IsNull(result, "The prefix somehow got processed");
+        }
+
+        [Test]
+        [TestCase("assemblyInfo", "AssemblyTitle", @".\Sample.TestLib.dll", "System.Reflection.AssemblyTitleAttribute")]
+        public void TestAssemblyInfoFunction(string prefix, string function, string assemblyPath, string attributeFullName)
+        {
+            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
+            string[] args = {
+                assemblyPath,
+                attributeFullName
             };
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);

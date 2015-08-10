@@ -6,8 +6,8 @@
     <ProjectGuid>{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wix.AssemblyInfo.Tests</RootNamespace>
-    <AssemblyName>Wix.AssemblyInfo.Tests</AssemblyName>
+    <RootNamespace>Wix.AssemblyInfoExtension.Tests</RootNamespace>
+    <AssemblyName>Wix.AssemblyInfoExtension.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,9 +69,17 @@
     <Compile Include="WixAssemblyInfoPreprocessorExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wix.AssemblyInfo\Wix.AssemblyInfo.csproj">
+    <ProjectReference Include="..\..\sample\Sample.TestApp\Sample.TestApp.csproj">
+      <Project>{898087cc-5af4-4b8f-a084-4e1f416ababb}</Project>
+      <Name>Sample.TestApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\sample\Sample.TestLib\Sample.TestLib.csproj">
+      <Project>{fddb5313-708f-46b8-8f15-87165a05805c}</Project>
+      <Name>Sample.TestLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wix.AssemblyInfo\Wix.AssemblyInfoExtension.csproj">
       <Project>{b08d9e52-612d-4f12-9023-f239d431a06f}</Project>
-      <Name>Wix.AssemblyInfo</Name>
+      <Name>Wix.AssemblyInfoExtension</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

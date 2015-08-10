@@ -1,6 +1,6 @@
 ﻿using Microsoft.Tools.WindowsInstallerXml;
 
-namespace Wix.AssemblyInfo
+namespace Wix.AssemblyInfoExtension
 {
     public class WixAssemblyInfoExtension : WixExtension
     {

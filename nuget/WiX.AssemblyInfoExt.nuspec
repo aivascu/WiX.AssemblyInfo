@@ -18,7 +18,10 @@
     </metadata>
     <files>
         <!--lib\-->
-        <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib" />
+        <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib\net35" />
+        <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib\net40" />
+        <file src="..\src\wix.assemblyinfo\bin\debug\WixAssemblyInfoExt.dll" target="lib\net45" />
+        <!--tools\-->
         <file src="tools\**\*.*" target="tools" />
     </files>
 </package>
