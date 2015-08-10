@@ -1,10 +1,20 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.IO;
+using NUnit.Framework;
 
 namespace Wix.AssemblyInfoExtension.Tests
 {
     [TestFixture]
     public class WixAssemblyInfoPreprocessorExtensionTests
     {
+        private string testDllAssemblyPath;
+
+        [TestFixtureSetUp]
+        public void TestSetup()
+        {
+            testDllAssemblyPath = @".\Sample.TestLib.dll";
+        }
+
         [Test]
         [TestCase("", "", "")]
         [TestCase(null, null, null)]
@@ -37,6 +47,30 @@ namespace Wix.AssemblyInfoExtension.Tests
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
             Assert.AreEqual(result, "Sample.TestLib");
+        }
+
+        [Test]
+        [TestCase("fileVersion", "SomethingWrong", @".\Sample.TestLib.dll")]
+        public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
+        {
+            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
+            string[] args = {
+                assemblyPath
+            };
+
+            Assert.Throws<InvalidOperationException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
+        }
+
+        [Test]
+        [TestCase("fileVersion", "ProductName", "Some Wrong Path")]
+        public void TestFileVersionFunction_Exception_WrongFilePath(string prefix, string function, string assemblyPath)
+        {
+            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
+            string[] args = {
+                assemblyPath
+            };
+
+            Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "Sample.TestLib");
         }
 
         [Test]
