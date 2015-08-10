@@ -26,7 +26,7 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase("fileVersion", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
+        [TestCase("fileVersion", "ProductName", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
         {
             var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
@@ -36,7 +36,7 @@ namespace Wix.AssemblyInfoExtension.Tests
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
-            Assert.IsNull(result, "The prefix somehow got processed");
+            Assert.AreEqual(result, "Sample.TestLib");
         }
 
         [Test]
