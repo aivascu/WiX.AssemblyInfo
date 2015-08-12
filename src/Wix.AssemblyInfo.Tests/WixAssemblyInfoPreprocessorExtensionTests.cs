@@ -7,14 +7,6 @@ namespace Wix.AssemblyInfoExtension.Tests
     [TestFixture]
     public class WixAssemblyInfoPreprocessorExtensionTests
     {
-        private string testDllAssemblyPath;
-
-        [TestFixtureSetUp]
-        public void TestSetup()
-        {
-            testDllAssemblyPath = @".\Sample.TestLib.dll";
-        }
-
         [Test]
         [TestCase("", "", "")]
         [TestCase(null, null, null)]
@@ -25,10 +17,10 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase("myWrongPrefix", "System.Reflection.AssemblyTitleAttribute", @".\Sample.TestLib.dll")]
         public void TestWrongPrefix(string prefix, string function, string assemblyPath)
         {
-            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath
             };
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
@@ -39,10 +31,10 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase("fileVersion", "ProductName", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
         {
-            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath
             };
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
@@ -53,10 +45,10 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase("fileVersion", "SomethingWrong", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
         {
-            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath
             };
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             Assert.Throws<InvalidOperationException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
         }
@@ -65,10 +57,10 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase("fileVersion", "ProductName", "Some Wrong Path")]
         public void TestFileVersionFunction_Exception_WrongFilePath(string prefix, string function, string assemblyPath)
         {
-            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath
             };
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "Sample.TestLib");
         }
@@ -77,11 +69,11 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase("assemblyInfo", "AssemblyTitle", @".\Sample.TestLib.dll", "System.Reflection.AssemblyTitleAttribute")]
         public void TestAssemblyInfoFunction(string prefix, string function, string assemblyPath, string attributeFullName)
         {
-            var preprocessorExtension = new WixAssemblyInfoPreprocessorExtension();
             string[] args = {
                 assemblyPath,
                 attributeFullName
             };
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 

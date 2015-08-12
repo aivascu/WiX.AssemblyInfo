@@ -2,9 +2,9 @@
 
 namespace Wix.AssemblyInfoExtension.Utility
 {
-    internal static class ReflectionHelper
+    internal class ReflectionHelper : IReflectionHelper
     {
-        public static object GetPropertyValueByName(object queriedObject, string propertyName)
+        public object GetPropertyValueByName(object queriedObject, string propertyName)
         {
             var propertyInfo = queriedObject.GetType().GetProperty(propertyName);
 
@@ -15,5 +15,10 @@ namespace Wix.AssemblyInfoExtension.Utility
 
             return propertyInfo.GetValue(queriedObject, null);
         }
+    }
+
+    public interface IReflectionHelper
+    {
+        object GetPropertyValueByName(object queriedObject, string propertyName);
     }
 }

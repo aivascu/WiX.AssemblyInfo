@@ -7,11 +7,23 @@ using Wix.AssemblyInfoExtension.Utility;
 
 namespace Wix.AssemblyInfoExtension
 {
-    public class WixAssemblyInfoPreprocessorExtension : PreprocessorExtension
+    public class AssemblyInfoPreprocessorExtension : PreprocessorExtension
     {
         private static readonly string[] ExtPrefixes = { ExtensionPrefixes.FileVersionPrefix, ExtensionPrefixes.AssemblyInfoPrefix };
-
+        readonly IPathHelper pathHelper;
+        readonly IReflectionHelper reflectionHelper;
         public override string[] Prefixes => ExtPrefixes;
+
+        public AssemblyInfoPreprocessorExtension()
+            : this(new PathHelper(), new ReflectionHelper())
+        {
+        }
+
+        public AssemblyInfoPreprocessorExtension(IPathHelper pathHelper, IReflectionHelper reflectionHelper)
+        {
+            this.pathHelper = pathHelper;
+            this.reflectionHelper = reflectionHelper;
+        }
 
         public override string EvaluateFunction(string prefix, string function, string[] args)
         {
@@ -28,25 +40,25 @@ namespace Wix.AssemblyInfoExtension
             return null;
         }
 
-        private static string EvaluateFileVersionInfo(string function, string filePath)
+        private string EvaluateFileVersionInfo(string function, string filePath)
         {
             if (filePath.IsNullOrWhiteSpace())
             {
                 throw new ArgumentNullException(nameof(filePath), "The attribute name has not been specified!");
             }
 
-            string absoluteFilePath = null;
+            string absoluteFilePath;
             string result = string.Empty;
-            if (PathHelper.TryPath(filePath, out absoluteFilePath))
+            if (pathHelper.TryPath(filePath, out absoluteFilePath))
             {
                 var fileVersionInfo = FileVersionInfo.GetVersionInfo(absoluteFilePath);
-                result = ReflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
+                result = reflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
             }
 
             return result;
         }
 
-        private static string EvaluateAssemblyInfo(string function, string filePath, string attributeTypeName)
+        private string EvaluateAssemblyInfo(string function, string filePath, string attributeTypeName)
         {
             if (attributeTypeName.IsNullOrWhiteSpace())
             {
@@ -55,21 +67,21 @@ namespace Wix.AssemblyInfoExtension
 
             string absoluteFilePath;
             string result = string.Empty;
-            if (PathHelper.TryPath(filePath, out absoluteFilePath))
+            if (pathHelper.TryPath(filePath, out absoluteFilePath))
             {
                 var assembly = Assembly.ReflectionOnlyLoadFrom(absoluteFilePath);
 
                 //TODO Check if there are any referenced assemblies
                 var dependencies = assembly.GetReferencedAssemblies();
                 var nonSystemDependencies = (from dependency in dependencies
-                                                where dependency.Name != "<In Memory Module>"
-                                                where !dependency.FullName.StartsWith("System")
-                                                where !dependency.FullName.StartsWith("Microsoft")
-                                                where !dependency.FullName.Contains("CppCodeProvider")
-                                                where !dependency.FullName.Contains("WebMatrix")
-                                                where !dependency.FullName.Contains("SMDiagnostics")
-                                                where !dependency.CodeBase.IsNullOrWhiteSpace()
-                                                select dependency).ToList();
+                                             where dependency.Name != "<In Memory Module>"
+                                             && !dependency.FullName.StartsWith("System")
+                                             && !dependency.FullName.StartsWith("Microsoft")
+                                             && !dependency.FullName.Contains("CppCodeProvider")
+                                             && !dependency.FullName.Contains("WebMatrix")
+                                             && !dependency.FullName.Contains("SMDiagnostics")
+                                             && !dependency.CodeBase.IsNullOrWhiteSpace()
+                                             select dependency).ToList();
 
                 foreach (var dependency in nonSystemDependencies)
                 {
@@ -97,7 +109,7 @@ namespace Wix.AssemblyInfoExtension
                     throw new InvalidOperationException($"The specified Assembly does not contain an attribute of type {attributeTypeName}!");
                 }
 
-                result = ReflectionHelper.GetPropertyValueByName(attribute, function).ToString();
+                result = reflectionHelper.GetPropertyValueByName(attribute, function).ToString();
             }
 
             return result;

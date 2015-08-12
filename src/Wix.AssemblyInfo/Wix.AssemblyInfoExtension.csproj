@@ -70,8 +70,8 @@
     <Compile Include="Utility\IsNullOrWhitespaceExtension.cs" />
     <Compile Include="Utility\PathHelper.cs" />
     <Compile Include="Utility\ReflectionHelper.cs" />
-    <Compile Include="WixAssemblyInfoExtension.cs" />
-    <Compile Include="WixAssemblyInfoPreprocessorExtension.cs" />
+    <Compile Include="AssemblyInfoExtension.cs" />
+    <Compile Include="AssemblyInfoPreprocessorExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
