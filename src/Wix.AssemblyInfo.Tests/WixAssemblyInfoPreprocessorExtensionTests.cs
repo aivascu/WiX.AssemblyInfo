@@ -130,7 +130,30 @@ namespace Wix.AssemblyInfoExtension.Tests
 
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "Sample.TestLib");
+            Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
+        }
+
+        [Test]
+        [TestCase(FileVersionPrefix, "ProductName", "   ")]
+        [TestCase(FileVersionPrefix, "ProductName", "")]
+        [TestCase(FileVersionPrefix, "ProductName", null)]
+        public void TestFileVersionFunction_Exception_EmptyPath(string prefix, string function, string assemblyPath)
+        {
+            string[] args = { assemblyPath };
+
+            var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
+            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var reflectionHelper = Substitute.For<IReflectionHelper>();
+
+            systemPathWrapper.FileExists(assemblyPath).Returns(false);
+            systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
+            systemPathWrapper.DidNotReceiveWithAnyArgs().IsPathRooted(Arg.Any<string>());
+            systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
+
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
+
+            Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
         }
 
         [Test]
@@ -142,11 +165,11 @@ namespace Wix.AssemblyInfoExtension.Tests
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
             var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.For<PathHelper>();
+            var pathHelper = Substitute.For<PathHelper>(systemPathWrapper);
             var reflectionHelper = Substitute.For<IReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            systemPathWrapper.FileExists(assemblyPath).Returns(false);
+            systemPathWrapper.FileExists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
