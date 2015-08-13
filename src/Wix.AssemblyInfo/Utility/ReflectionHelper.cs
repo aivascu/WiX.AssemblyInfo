@@ -2,7 +2,7 @@
 
 namespace Wix.AssemblyInfoExtension.Utility
 {
-    internal class ReflectionHelper : IReflectionHelper
+    public class ReflectionHelper : IReflectionHelper
     {
         public object GetPropertyValueByName(object queriedObject, string propertyName)
         {

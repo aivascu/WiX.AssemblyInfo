@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
@@ -10,17 +9,20 @@ namespace Wix.AssemblyInfoExtension
     public class AssemblyInfoPreprocessorExtension : PreprocessorExtension
     {
         private static readonly string[] ExtPrefixes = { ExtensionPrefixes.FileVersionPrefix, ExtensionPrefixes.AssemblyInfoPrefix };
-        readonly IPathHelper pathHelper;
-        readonly IReflectionHelper reflectionHelper;
+        private readonly IPathHelper pathHelper;
+        private readonly IReflectionHelper reflectionHelper;
+        private readonly ISystemReflectionWrapper systemReflectionWrapper;
+
         public override string[] Prefixes => ExtPrefixes;
 
         public AssemblyInfoPreprocessorExtension()
-            : this(new PathHelper(), new ReflectionHelper())
+            : this(new PathHelper(), new ReflectionHelper(), new SystemReflectionWrapper())
         {
         }
 
-        public AssemblyInfoPreprocessorExtension(IPathHelper pathHelper, IReflectionHelper reflectionHelper)
+        public AssemblyInfoPreprocessorExtension(IPathHelper pathHelper, IReflectionHelper reflectionHelper, ISystemReflectionWrapper systemReflectionWrapper)
         {
+            this.systemReflectionWrapper = systemReflectionWrapper;
             this.pathHelper = pathHelper;
             this.reflectionHelper = reflectionHelper;
         }
@@ -51,7 +53,7 @@ namespace Wix.AssemblyInfoExtension
             string result = string.Empty;
             if (pathHelper.TryPath(filePath, out absoluteFilePath))
             {
-                var fileVersionInfo = FileVersionInfo.GetVersionInfo(absoluteFilePath);
+                var fileVersionInfo = systemReflectionWrapper.GetFileVersionInfo(absoluteFilePath);
                 result = reflectionHelper.GetPropertyValueByName(fileVersionInfo, function).ToString();
             }
 
