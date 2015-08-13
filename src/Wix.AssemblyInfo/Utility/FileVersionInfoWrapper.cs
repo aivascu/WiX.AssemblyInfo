@@ -45,32 +45,32 @@ namespace Wix.AssemblyInfoExtension.Utility
             return fileInfo;
         }
 
-        public string Comments { get; }
-        public string CompanyName { get; }
-        public int FileBuildPart { get; }
-        public string FileDescription { get; }
-        public int FileMajorPart { get; }
-        public int FileMinorPart { get; }
-        public string FileName { get; }
-        public int FilePrivatePart { get; }
-        public string FileVersion { get; }
-        public string InternalName { get; }
-        public bool IsDebug { get; }
-        public bool IsPatched { get; }
-        public bool IsPrivateBuild { get; }
-        public bool IsPreRelease { get; }
-        public bool IsSpecialBuild { get; }
-        public string Language { get; }
-        public string LegalCopyright { get; }
-        public string LegalTrademarks { get; }
-        public string OriginalFilename { get; }
-        public string PrivateBuild { get; }
-        public int ProductBuildPart { get; }
-        public int ProductMajorPart { get; }
-        public int ProductMinorPart { get; }
-        public string ProductName { get; }
-        public int ProductPrivatePart { get; }
-        public string ProductVersion { get; }
-        public string SpecialBuild { get; }
+        public string Comments { get; set; }
+        public string CompanyName { get; set; }
+        public int FileBuildPart { get; set; }
+        public string FileDescription { get; set; }
+        public int FileMajorPart { get; set; }
+        public int FileMinorPart { get; set; }
+        public string FileName { get; set; }
+        public int FilePrivatePart { get; set; }
+        public string FileVersion { get; set; }
+        public string InternalName { get; set; }
+        public bool IsDebug { get; set; }
+        public bool IsPatched { get; set; }
+        public bool IsPrivateBuild { get; set; }
+        public bool IsPreRelease { get; set; }
+        public bool IsSpecialBuild { get; set; }
+        public string Language { get; set; }
+        public string LegalCopyright { get; set; }
+        public string LegalTrademarks { get; set; }
+        public string OriginalFilename { get; set; }
+        public string PrivateBuild { get; set; }
+        public int ProductBuildPart { get; set; }
+        public int ProductMajorPart { get; set; }
+        public int ProductMinorPart { get; set; }
+        public string ProductName { get; set; }
+        public int ProductPrivatePart { get; set; }
+        public string ProductVersion { get; set; }
+        public string SpecialBuild { get; set; }
     }
 }

@@ -46,14 +46,24 @@ namespace Wix.AssemblyInfoExtension.Tests
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
+            string fullPath = @"C:\Sample.TestLib.dll";
+            string productName = "Sample.TestLib";
+
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>();
-            var reflectionHelper = Substitute.ForPartsOf<IReflectionHelper>();
+            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
+            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
+
+            fileVersionInfo.ProductName = productName;
+            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
+            systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
-            Assert.AreEqual(result, "Sample.TestLib");
+            Assert.AreEqual(result, productName, "Wrong product name!");
         }
 
         [Test]
@@ -94,12 +104,12 @@ namespace Wix.AssemblyInfoExtension.Tests
             var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            systemPathWrapper.FileExists(Arg.Any<string>()).Returns(true);
-            systemPathWrapper.GetFullPath(Arg.Any<string>()).Returns(fullPath);
+            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
             Assert.Throws<InvalidOperationException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
-            systemPathWrapper.Received().IsPathRooted(Arg.Any<string>());
+            systemPathWrapper.Received().IsPathRooted(assemblyPath);
         }
 
         [Test]
