@@ -49,6 +49,11 @@ namespace Wix.AssemblyInfoExtension
                 throw new ArgumentNullException(nameof(filePath), "The attribute name has not been specified!");
             }
 
+            if (function.IsNullOrWhiteSpace())
+            {
+                throw new ArgumentNullException(nameof(function), "The attribute name has not been specified!");
+            }
+
             string absoluteFilePath;
             string result = string.Empty;
             if (pathHelper.TryPath(filePath, out absoluteFilePath))

@@ -57,10 +57,31 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase(fileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
+        
         [TestCase(fileVersionPrefix, "   ", @".\Sample.TestLib.dll")]
         [TestCase(fileVersionPrefix, "", @".\Sample.TestLib.dll")]
         [TestCase(fileVersionPrefix, null, @".\Sample.TestLib.dll")]
+        public void TestFileVersionFunction_Exception_EmptyAttribute(string prefix, string function, string assemblyPath)
+        {
+            string[] args = { assemblyPath };
+            string fullPath = @"C:\Sample.TestLib.dll";
+
+            var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
+            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
+            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
+
+            systemPathWrapper.FileExists(Arg.Any<string>()).Returns(true);
+            systemPathWrapper.GetFullPath(Arg.Any<string>()).Returns(fullPath);
+            systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
+
+            Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
+        }
+
+        [Test]
+        [TestCase(fileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
