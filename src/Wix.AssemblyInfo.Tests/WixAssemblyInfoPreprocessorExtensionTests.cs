@@ -9,8 +9,8 @@ namespace Wix.AssemblyInfoExtension.Tests
     [TestFixture]
     public class WixAssemblyInfoPreprocessorExtensionTests
     {
-        private const string fileVersionPrefix = "fileVersion";
-        private const string assemblyInfoPrefix = "assemblyInfo";
+        private const string FileVersionPrefix = "fileVersion";
+        private const string AssemblyInfoPrefix = "assemblyInfo";
 
         [Test]
         [TestCase("", "", "")]
@@ -42,7 +42,7 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase(fileVersionPrefix, "ProductName", @".\Sample.TestLib.dll")]
+        [TestCase(FileVersionPrefix, "ProductName", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
@@ -68,9 +68,9 @@ namespace Wix.AssemblyInfoExtension.Tests
 
         [Test]
         
-        [TestCase(fileVersionPrefix, "   ", @".\Sample.TestLib.dll")]
-        [TestCase(fileVersionPrefix, "", @".\Sample.TestLib.dll")]
-        [TestCase(fileVersionPrefix, null, @".\Sample.TestLib.dll")]
+        [TestCase(FileVersionPrefix, "   ", @".\Sample.TestLib.dll")]
+        [TestCase(FileVersionPrefix, "", @".\Sample.TestLib.dll")]
+        [TestCase(FileVersionPrefix, null, @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction_Exception_EmptyAttribute(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
@@ -91,7 +91,7 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase(fileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
+        [TestCase(FileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
@@ -113,7 +113,7 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase(fileVersionPrefix, "ProductName", "Some Wrong Path")]
+        [TestCase(FileVersionPrefix, "ProductName", "Some Wrong Path")]
         public void TestFileVersionFunction_Exception_WrongFilePath(string prefix, string function, string assemblyPath)
         {
             string[] args = { assemblyPath };
@@ -124,7 +124,6 @@ namespace Wix.AssemblyInfoExtension.Tests
             var reflectionHelper = Substitute.For<IReflectionHelper>();
 
             systemPathWrapper.FileExists(assemblyPath).Returns(false);
-
             systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
             systemPathWrapper.DidNotReceiveWithAnyArgs().IsPathRooted(Arg.Any<string>());
             systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
@@ -135,14 +134,20 @@ namespace Wix.AssemblyInfoExtension.Tests
         }
 
         [Test]
-        [TestCase(assemblyInfoPrefix, "AssemblyTitle", @".\Sample.TestLib.dll", "System.Reflection.AssemblyTitleAttribute")]
+        [TestCase(AssemblyInfoPrefix, "AssemblyTitle", @".\Sample.TestLib.dll", "System.Reflection.AssemblyTitleAttribute")]
         public void TestAssemblyInfoFunction(string prefix, string function, string assemblyPath, string attributeFullName)
         {
             string[] args = { assemblyPath, attributeFullName };
+            string fullPath = @"C:\Sample.TestLib.dll";
+
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var pathHelper = Substitute.For<IPathHelper>();
+            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
+            var pathHelper = Substitute.For<PathHelper>();
             var reflectionHelper = Substitute.For<IReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
+
+            systemPathWrapper.FileExists(assemblyPath).Returns(false);
+            systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 

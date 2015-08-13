@@ -1,4 +1,4 @@
-﻿namespace Wix.AssemblyInfoExtension
+﻿namespace Wix.AssemblyInfoExtension.Resources
 {
     internal static class ExtensionPrefixes
     {

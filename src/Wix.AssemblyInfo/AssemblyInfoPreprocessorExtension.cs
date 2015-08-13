@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
+using Wix.AssemblyInfoExtension.Resources;
 using Wix.AssemblyInfoExtension.Utility;
 
 namespace Wix.AssemblyInfoExtension
