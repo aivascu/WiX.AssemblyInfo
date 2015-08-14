@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.TestApp", "..\sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.TestLib", "..\sample\Sample.TestLib\Sample.TestLib.csproj", "{FDDB5313-708F-46B8-8F15-87165A05805C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfoExtension.Integration", "Wix.AssemblyInfoExtension.Integration\Wix.AssemblyInfoExtension.Integration.csproj", "{C79FE7CC-B378-47A2-83AA-EC5565FE919B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,18 @@ Global
 		{FDDB5313-708F-46B8-8F15-87165A05805C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FDDB5313-708F-46B8-8F15-87165A05805C}.Release|x86.ActiveCfg = Release|Any CPU
 		{FDDB5313-708F-46B8-8F15-87165A05805C}.Release|x86.Build.0 = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Debug|x86.Build.0 = Debug|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|x86.ActiveCfg = Release|Any CPU
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +119,7 @@ Global
 		{2F4F6E6B-0255-492D-A335-E24774DC3B6F} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
 		{898087CC-5AF4-4B8F-A084-4E1F416ABABB} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
 		{FDDB5313-708F-46B8-8F15-87165A05805C} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
+		{C79FE7CC-B378-47A2-83AA-EC5565FE919B} = {BFF33BCC-E8ED-4796-BB2A-A17A9E761A87}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

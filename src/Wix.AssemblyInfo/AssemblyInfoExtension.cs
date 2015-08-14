@@ -4,18 +4,18 @@ namespace Wix.AssemblyInfoExtension
 {
     public class AssemblyInfoExtension : WixExtension
     {
-        private readonly AssemblyInfoPreprocessorExtension versionPreprocessorExtension;
+        private readonly AssemblyInfoPreprocessorExtension assemblyInfoPreprocessorExtension;
 
         public AssemblyInfoExtension()
         {
-            versionPreprocessorExtension = new AssemblyInfoPreprocessorExtension();
+            assemblyInfoPreprocessorExtension = new AssemblyInfoPreprocessorExtension();
         }
 
-        public AssemblyInfoExtension(AssemblyInfoPreprocessorExtension versionPreprocessorExtension)
+        public AssemblyInfoExtension(AssemblyInfoPreprocessorExtension assemblyInfoPreprocessorExtension)
         {
-            this.versionPreprocessorExtension = versionPreprocessorExtension;
+            this.assemblyInfoPreprocessorExtension = assemblyInfoPreprocessorExtension;
         }
 
-        public override PreprocessorExtension PreprocessorExtension => versionPreprocessorExtension ?? new AssemblyInfoPreprocessorExtension();
+        public override PreprocessorExtension PreprocessorExtension => assemblyInfoPreprocessorExtension ?? new AssemblyInfoPreprocessorExtension();
     }
 }

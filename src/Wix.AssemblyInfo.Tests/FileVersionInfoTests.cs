@@ -7,7 +7,7 @@ using Wix.AssemblyInfoExtension.Utility;
 namespace Wix.AssemblyInfoExtension.Tests
 {
     [TestFixture]
-    public class WixAssemblyInfoPreprocessorExtensionTests
+    public class FileVersionInfoTests
     {
         private const string FileVersionPrefix = "fileVersion";
         private const string AssemblyInfoPrefix = "assemblyInfo";
@@ -37,7 +37,6 @@ namespace Wix.AssemblyInfoExtension.Tests
             pathHelper.DidNotReceiveWithAnyArgs().TryPath(Arg.Any<string>(), out fullPath);
             systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
             reflectionHelper.DidNotReceiveWithAnyArgs().GetPropertyValueByName(Arg.Any<object>(), Arg.Any<string>());
-
             Assert.IsNull(result, "The prefix somehow got processed");
         }
 
@@ -45,6 +44,7 @@ namespace Wix.AssemblyInfoExtension.Tests
         [TestCase(FileVersionPrefix, "ProductName", @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
         {
+            // Arrange
             string[] args = { assemblyPath };
             string fullPath = @"C:\Sample.TestLib.dll";
             string productName = "Sample.TestLib";
@@ -61,39 +61,20 @@ namespace Wix.AssemblyInfoExtension.Tests
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
+            // Act
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
+            // Assert
             Assert.AreEqual(result, productName, "Wrong product name!");
         }
 
         [Test]
-        
         [TestCase(FileVersionPrefix, "   ", @".\Sample.TestLib.dll")]
         [TestCase(FileVersionPrefix, "", @".\Sample.TestLib.dll")]
         [TestCase(FileVersionPrefix, null, @".\Sample.TestLib.dll")]
         public void TestFileVersionFunction_Exception_EmptyAttribute(string prefix, string function, string assemblyPath)
         {
-            string[] args = { assemblyPath };
-            string fullPath = @"C:\Sample.TestLib.dll";
-
-            var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
-            var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
-            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
-            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
-
-            systemPathWrapper.FileExists(Arg.Any<string>()).Returns(true);
-            systemPathWrapper.GetFullPath(Arg.Any<string>()).Returns(fullPath);
-            systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
-
-            Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
-        }
-
-        [Test]
-        [TestCase(FileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
-        public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
-        {
+            // Arrange
             string[] args = { assemblyPath };
             string fullPath = @"C:\Sample.TestLib.dll";
 
@@ -108,6 +89,32 @@ namespace Wix.AssemblyInfoExtension.Tests
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
+            // Act
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
+        }
+
+        [Test]
+        [TestCase(FileVersionPrefix, "SomethingWrong", @".\Sample.TestLib.dll")]
+        public void TestFileVersionFunction_Exception_WrongAttribute(string prefix, string function, string assemblyPath)
+        {
+            // Arrange
+            string[] args = { assemblyPath };
+            string fullPath = @"C:\Sample.TestLib.dll";
+
+            var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
+            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
+            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
+
+            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
+            systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
+
+            // Act
+            // Assert
             Assert.Throws<InvalidOperationException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "An incorrect attribute got processed!");
             systemPathWrapper.Received().IsPathRooted(assemblyPath);
         }
@@ -130,7 +137,8 @@ namespace Wix.AssemblyInfoExtension.Tests
 
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
+            var ex = Assert.Throws<FileNotFoundException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
+            Assert.That(ex.Message, Is.StringContaining("The specified file does not exist!"), "Exception thrown by another argument!");
         }
 
         [Test]
@@ -145,15 +153,15 @@ namespace Wix.AssemblyInfoExtension.Tests
             var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
             var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
             var reflectionHelper = Substitute.For<IReflectionHelper>();
+            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
             systemPathWrapper.FileExists(assemblyPath).Returns(false);
             systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
             systemPathWrapper.DidNotReceiveWithAnyArgs().IsPathRooted(Arg.Any<string>());
             systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
 
-            var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
-
-            Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
+            var ex = Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
+            Assert.That(ex.Message, Is.StringContaining("The file path has not been specified!"), "Exception thrown by another argument!");
         }
 
         [Test]
