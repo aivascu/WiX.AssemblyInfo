@@ -8,20 +8,19 @@ namespace Wix.AssemblyInfoExtension.Integration
         private const string FileVersionPrefix = "fileVersion";
 
         [Test]
-        [TestCase(FileVersionPrefix, "ProductName", @".\Sample.TestLib.dll")]
-        public void TestFileVersionFunction(string prefix, string function, string assemblyPath)
+        [TestCase(FileVersionPrefix, "ProductName", @".\Sample.TestLib.dll", "Sample.TestLib")]
+        [TestCase(FileVersionPrefix, "ProductVersion", @".\Sample.TestLib.dll", "1.0.0.0")]
+        public void TestFileVersionFunction(string prefix, string function, string assemblyPath, string expectedResult)
         {
             // Arrange
             string[] args = { assemblyPath };
-            string productName = "Sample.TestLib";
-
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension();
 
             // Act
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);
 
             // Assert
-            Assert.AreEqual(result, productName, "Wrong product name!");
+            Assert.AreEqual(result, expectedResult, "Wrong product name!");
         }
     }
 }

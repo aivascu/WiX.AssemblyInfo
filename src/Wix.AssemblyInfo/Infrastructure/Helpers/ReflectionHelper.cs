@@ -33,24 +33,8 @@ namespace Wix.AssemblyInfoExtension.Infrastructure
         public object GetAssemblyAttributeInfo(string assemblyPath, string attributeTypeName)
         {
             var assembly = Assembly.LoadFrom(assemblyPath);
-
-            //TODO Check if there are any referenced assemblies
-            var dependencies = assembly.GetReferencedAssemblies();
-            var nonSystemDependencies = (from dependency in dependencies
-                                         where dependency.Name != "<In Memory Module>"
-                                         && !dependency.FullName.StartsWith("System")
-                                         && !dependency.FullName.StartsWith("Microsoft")
-                                         && !dependency.FullName.Contains("CppCodeProvider")
-                                         && !dependency.FullName.Contains("WebMatrix")
-                                         && !dependency.FullName.Contains("SMDiagnostics")
-                                         && !dependency.CodeBase.IsNullOrWhiteSpace()
-                                         select dependency).ToList();
-
-            foreach (var dependency in nonSystemDependencies)
-            {
-                //TODO load dependencies to the app domain
-                Assembly.Load(systemPathWrapper.GetFullPath($"{dependency.CodeBase}{dependency.Name}.dll"));
-            }
+            var referencedAssemblies = assembly.GetReferencedAssemblies()
+                .Select(a => Assembly.Load(a.FullName));
 
             Type attributeType;
             if (attributeTypeName.StartsWith("System") || attributeTypeName.StartsWith("Microsoft"))
@@ -59,7 +43,10 @@ namespace Wix.AssemblyInfoExtension.Infrastructure
             }
             else
             {
-                attributeType = assembly.GetType(attributeTypeName);
+                attributeType = referencedAssemblies
+                    .Select(a => a.GetTypes()
+                        .FirstOrDefault(t => t.FullName.Equals(attributeTypeName)))
+                    .FirstOrDefault(t => t != null);
             }
 
             if (attributeType == null || !attributeType.IsSubclassOf(typeof(Attribute)))
