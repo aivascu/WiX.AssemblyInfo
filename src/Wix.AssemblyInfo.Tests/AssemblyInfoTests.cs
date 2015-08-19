@@ -1,6 +1,6 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
-using Wix.AssemblyInfoExtension.Utility;
+using Wix.AssemblyInfoExtension.Infrastructure;
 
 namespace Wix.AssemblyInfoExtension.Tests
 {
@@ -22,13 +22,14 @@ namespace Wix.AssemblyInfoExtension.Tests
             };
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.For<PathHelper>(systemPathWrapper);
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.For<PathHelper>(systemPathWrapper, systemFileWrapper);
             var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>(systemPathWrapper);
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
             reflectionHelper.GetAssemblyAttributeInfo(fullPath, attributeFullName).Returns(assemblyInfo);
-            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemFileWrapper.Exists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
 
             var result = preprocessorExtension.EvaluateFunction(prefix, function, args);

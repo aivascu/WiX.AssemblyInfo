@@ -1,20 +1,22 @@
 ﻿using System;
 using System.IO;
 
-namespace Wix.AssemblyInfoExtension.Utility
+namespace Wix.AssemblyInfoExtension.Infrastructure
 {
     public class PathHelper : IPathHelper
     {
-        private readonly ISystemPathWrapper systemPathWrapper;
+        private readonly IPath systemPathWrapper;
+        private readonly IFile systemFileWrapper;
 
         public PathHelper()
-            : this(new SystemPathWrapper())
+            : this(new SystemPathWrapper(), new SystemFileWrapper())
         {
         }
 
-        public PathHelper(ISystemPathWrapper systemPathWrapper)
+        public PathHelper(IPath systemPathWrapper, IFile systemFileWrapper)
         {
             this.systemPathWrapper = systemPathWrapper;
+            this.systemFileWrapper = systemFileWrapper;
         }
 
         public bool TryPath(string filePath, out string absolutePath)
@@ -24,7 +26,7 @@ namespace Wix.AssemblyInfoExtension.Utility
                 throw new ArgumentNullException(nameof(filePath), "File name not specified");
             }
 
-            if (!systemPathWrapper.FileExists(filePath))
+            if (!systemFileWrapper.Exists(filePath))
             {
                 throw new FileNotFoundException("The specified file does not exist!", filePath);
             }
@@ -39,10 +41,5 @@ namespace Wix.AssemblyInfoExtension.Utility
             }
             return true;
         }
-    }
-
-    public interface IPathHelper
-    {
-        bool TryPath(string filePath, out string absolutePath);
     }
 }

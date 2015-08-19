@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Wix.AssemblyInfoExtension.Utility
+namespace Wix.AssemblyInfoExtension.Infrastructure
 {
     public class SystemReflectionWrapper : ISystemReflectionWrapper
     {
@@ -8,10 +8,5 @@ namespace Wix.AssemblyInfoExtension.Utility
         {
             return (FileVersionInfoWrapper)FileVersionInfo.GetVersionInfo(assemblyPath);
         }
-    }
-
-    public interface ISystemReflectionWrapper
-    {
-        FileVersionInfoWrapper GetFileVersionInfo(string assemblyPath);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Tools.WindowsInstallerXml;
+using Wix.AssemblyInfoExtension.Infrastructure;
 using Wix.AssemblyInfoExtension.Resources;
-using Wix.AssemblyInfoExtension.Utility;
 
 namespace Wix.AssemblyInfoExtension
 {

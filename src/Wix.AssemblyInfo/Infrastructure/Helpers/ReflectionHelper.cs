@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Wix.AssemblyInfoExtension.Utility
+namespace Wix.AssemblyInfoExtension.Infrastructure
 {
     public class ReflectionHelper : IReflectionHelper
     {
-        private readonly ISystemPathWrapper systemPathWrapper;
+        private readonly IPath systemPathWrapper;
 
         public ReflectionHelper()
             : this(new SystemPathWrapper())
@@ -76,12 +76,5 @@ namespace Wix.AssemblyInfoExtension.Utility
 
             return attribute;
         }
-    }
-
-    public interface IReflectionHelper
-    {
-        object GetPropertyValueByName(object queriedObject, string propertyName);
-
-        object GetAssemblyAttributeInfo(string assemblyPath, string attributeTypeName);
     }
 }

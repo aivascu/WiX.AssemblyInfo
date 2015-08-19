@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 
-namespace Wix.AssemblyInfoExtension.Utility
+namespace Wix.AssemblyInfoExtension.Infrastructure
 {
-    public class FileVersionInfoWrapper
+    public class FileVersionInfoWrapper : IFileVersionInfo
     {
         public FileVersionInfoWrapper()
         {

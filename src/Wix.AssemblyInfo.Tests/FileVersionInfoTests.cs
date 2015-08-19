@@ -2,7 +2,7 @@
 using System.IO;
 using NSubstitute;
 using NUnit.Framework;
-using Wix.AssemblyInfoExtension.Utility;
+using Wix.AssemblyInfoExtension.Infrastructure;
 
 namespace Wix.AssemblyInfoExtension.Tests
 {
@@ -49,14 +49,15 @@ namespace Wix.AssemblyInfoExtension.Tests
             string productName = "Sample.TestLib";
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
             var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
             var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
             fileVersionInfo.ProductName = productName;
-            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemFileWrapper.Exists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
@@ -78,13 +79,14 @@ namespace Wix.AssemblyInfoExtension.Tests
             string fullPath = @"C:\Sample.TestLib.dll";
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
             var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
             var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemFileWrapper.Exists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
@@ -102,13 +104,14 @@ namespace Wix.AssemblyInfoExtension.Tests
             string fullPath = @"C:\Sample.TestLib.dll";
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
             var fileVersionInfo = Substitute.ForPartsOf<FileVersionInfoWrapper>();
             var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            systemPathWrapper.FileExists(assemblyPath).Returns(true);
+            systemFileWrapper.Exists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
             systemReflectionWrapper.GetFileVersionInfo(fullPath).Returns(fileVersionInfo);
 
@@ -125,11 +128,12 @@ namespace Wix.AssemblyInfoExtension.Tests
             string[] args = { assemblyPath };
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
-            var reflectionHelper = Substitute.For<IReflectionHelper>();
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
+            var reflectionHelper = Substitute.For <IReflectionHelper>();
 
-            systemPathWrapper.FileExists(assemblyPath).Returns(false);
+            systemFileWrapper.Exists(assemblyPath).Returns(false);
             systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
             systemPathWrapper.DidNotReceiveWithAnyArgs().IsPathRooted(Arg.Any<string>());
             systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
@@ -149,12 +153,13 @@ namespace Wix.AssemblyInfoExtension.Tests
             string[] args = { assemblyPath };
 
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
-            var systemPathWrapper = Substitute.For<ISystemPathWrapper>();
-            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper);
+            var systemPathWrapper = Substitute.For<IPath>();
+            var systemFileWrapper = Substitute.For<IFile>();
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
             var reflectionHelper = Substitute.For<IReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            systemPathWrapper.FileExists(assemblyPath).Returns(false);
+            systemFileWrapper.Exists(assemblyPath).Returns(false);
             systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
             systemPathWrapper.DidNotReceiveWithAnyArgs().IsPathRooted(Arg.Any<string>());
             systemReflectionWrapper.DidNotReceiveWithAnyArgs().GetFileVersionInfo(Arg.Any<string>());
