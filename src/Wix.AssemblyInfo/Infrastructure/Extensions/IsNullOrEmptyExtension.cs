@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Wix.AssemblyInfo.Utility
+namespace Wix.AssemblyInfoExtension.Infrastructure
 {
     public static class IsNullOrEmptyExtension
     {

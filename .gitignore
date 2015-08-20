@@ -86,6 +86,7 @@ $tf/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+*.DotSettings
 
 # JustCode is a .NET coding addin-in
 .JustCode
@@ -130,6 +131,9 @@ publish/
 ## web deploy settings but do note that will include unencrypted
 ## passwords
 #*.pubxml
+
+# NuGet Packages
+*.nupkg
 
 # NuGet Packages Directory
 **/packages/*

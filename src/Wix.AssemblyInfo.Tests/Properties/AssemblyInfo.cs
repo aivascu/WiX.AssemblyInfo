@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using Sample.TestLib;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TestApp")]
+[assembly: AssemblyTitle("WixAssemblyInfoExtension.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MyCoolCompany")]
-[assembly: AssemblyProduct("TestApp")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Wix.AssemblyInfoExtension.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +19,7 @@ using Sample.TestLib;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("898087cc-5af4-4b8f-a084-4e1f416ababb")]
+[assembly: Guid("d3baeae2-5133-4e0b-b8f5-5ebccce16237")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,6 +33,3 @@ using Sample.TestLib;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-// Test attribute here
-[assembly: AssemblyTest("Test string")]

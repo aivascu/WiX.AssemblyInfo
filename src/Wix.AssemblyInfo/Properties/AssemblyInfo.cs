@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Tools.WindowsInstallerXml;
-using Wix.AssemblyInfo;
+using Wix.AssemblyInfoExtension;
 
 [assembly: AssemblyTitle("WixAssemblyInfoExtension")]
 [assembly: AssemblyDescription("")]
@@ -12,4 +12,4 @@ using Wix.AssemblyInfo;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyDefaultWixExtension(typeof(WixAssemblyInfoExtension))]
+[assembly: AssemblyDefaultWixExtension(typeof(AssemblyInfoExtension))]

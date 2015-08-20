@@ -8,8 +8,8 @@
     <ProjectGuid>{B08D9E52-612D-4F12-9023-F239D431A06F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wix.AssemblyInfo</RootNamespace>
-    <AssemblyName>WixAssemblyInfoExt</AssemblyName>
+    <RootNamespace>Wix.AssemblyInfoExtension</RootNamespace>
+    <AssemblyName>WixAssemblyInfoExtension</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>Svn</SccProjectName>
@@ -64,12 +64,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Wrappers\IAssembly.cs" />
+    <Compile Include="Interfaces\Wrappers\IFile.cs" />
+    <Compile Include="Interfaces\Wrappers\IFileVersionInfo.cs" />
+    <Compile Include="Interfaces\Wrappers\IPath.cs" />
+    <Compile Include="Infrastructure\Wrappers\AssemblyWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\IsNullOrEmptyExtension.cs" />
-    <Compile Include="Utility\MemberInfoHelper.cs" />
-    <Compile Include="Utility\IsNullOrWhitespaceExtension.cs" />
-    <Compile Include="WixAssemblyInfoExtension.cs" />
-    <Compile Include="WixAssemblyInfoPreprocessorExtension.cs" />
+    <Compile Include="Resources\ExtensionPrefixes.cs" />
+    <Compile Include="Infrastructure\Wrappers\FileVersionInfoWrapper.cs" />
+    <Compile Include="Interfaces\Helpers\IPathHelper.cs" />
+    <Compile Include="Interfaces\Helpers\IReflectionHelper.cs" />
+    <Compile Include="Infrastructure\Extensions\IsNullOrEmptyExtension.cs" />
+    <Compile Include="Infrastructure\Extensions\IsNullOrWhitespaceExtension.cs" />
+    <Compile Include="Interfaces\Wrappers\ISystemReflectionWrapper.cs" />
+    <Compile Include="Infrastructure\Helpers\PathHelper.cs" />
+    <Compile Include="Infrastructure\Helpers\ReflectionHelper.cs" />
+    <Compile Include="AssemblyInfoExtension.cs" />
+    <Compile Include="AssemblyInfoPreprocessorExtension.cs" />
+    <Compile Include="Infrastructure\Wrappers\SystemFileWrapper.cs" />
+    <Compile Include="Infrastructure\Wrappers\SystemPathWrapper.cs" />
+    <Compile Include="Infrastructure\Wrappers\SystemReflectionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -78,6 +92,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
