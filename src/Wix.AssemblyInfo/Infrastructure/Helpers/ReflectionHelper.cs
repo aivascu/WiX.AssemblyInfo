@@ -36,18 +36,10 @@ namespace Wix.AssemblyInfoExtension.Infrastructure
             var referencedAssemblies = assembly.GetReferencedAssemblies()
                 .Select(a => Assembly.Load(a.FullName));
 
-            Type attributeType;
-            if (attributeTypeName.StartsWith("System") || attributeTypeName.StartsWith("Microsoft"))
-            {
-                attributeType = Type.GetType(attributeTypeName);
-            }
-            else
-            {
-                attributeType = referencedAssemblies
+            var attributeType = referencedAssemblies
                     .Select(a => a.GetTypes()
                         .FirstOrDefault(t => t.FullName.Equals(attributeTypeName)))
                     .FirstOrDefault(t => t != null);
-            }
 
             if (attributeType == null || !attributeType.IsSubclassOf(typeof(Attribute)))
             {

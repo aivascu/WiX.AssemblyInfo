@@ -131,7 +131,7 @@ namespace Wix.AssemblyInfoExtension.Tests
             var systemPathWrapper = Substitute.For<IPath>();
             var systemFileWrapper = Substitute.For<IFile>();
             var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
-            var reflectionHelper = Substitute.For <IReflectionHelper>();
+            var reflectionHelper = Substitute.For<IReflectionHelper>();
 
             systemFileWrapper.Exists(assemblyPath).Returns(false);
             systemPathWrapper.DidNotReceiveWithAnyArgs().GetFullPath(Arg.Any<string>());
@@ -167,7 +167,5 @@ namespace Wix.AssemblyInfoExtension.Tests
             var ex = Assert.Throws<ArgumentNullException>(() => preprocessorExtension.EvaluateFunction(prefix, function, args), "The path was processed!");
             Assert.That(ex.Message, Is.StringContaining("The file path has not been specified!"), "Exception thrown by another argument!");
         }
-
-
     }
 }
