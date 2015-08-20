@@ -6,18 +6,6 @@ namespace Wix.AssemblyInfoExtension.Infrastructure
 {
     public class ReflectionHelper : IReflectionHelper
     {
-        private readonly IPath systemPathWrapper;
-
-        public ReflectionHelper()
-            : this(new SystemPathWrapper())
-        {
-        }
-
-        public ReflectionHelper(SystemPathWrapper systemPathWrapper)
-        {
-            this.systemPathWrapper = systemPathWrapper;
-        }
-
         public object GetPropertyValueByName(object queriedObject, string propertyName)
         {
             var propertyInfo = queriedObject.GetType().GetProperty(propertyName);
@@ -30,7 +18,7 @@ namespace Wix.AssemblyInfoExtension.Infrastructure
             return propertyInfo.GetValue(queriedObject, null);
         }
 
-        public object GetAssemblyAttributeInfo(string assemblyPath, string attributeTypeName)
+        public virtual object GetAssemblyAttributeInfo(string assemblyPath, string attributeTypeName)
         {
             var assembly = Assembly.LoadFrom(assemblyPath);
             var referencedAssemblies = assembly.GetReferencedAssemblies()

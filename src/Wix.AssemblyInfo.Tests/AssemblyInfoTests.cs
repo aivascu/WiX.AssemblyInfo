@@ -24,11 +24,11 @@ namespace Wix.AssemblyInfoExtension.Tests
             var systemReflectionWrapper = Substitute.For<ISystemReflectionWrapper>();
             var systemPathWrapper = Substitute.For<IPath>();
             var systemFileWrapper = Substitute.For<IFile>();
-            var pathHelper = Substitute.For<PathHelper>(systemPathWrapper, systemFileWrapper);
-            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>(systemPathWrapper);
+            var pathHelper = Substitute.ForPartsOf<PathHelper>(systemPathWrapper, systemFileWrapper);
+            var reflectionHelper = Substitute.ForPartsOf<ReflectionHelper>();
             var preprocessorExtension = new AssemblyInfoPreprocessorExtension(pathHelper, reflectionHelper, systemReflectionWrapper);
 
-            reflectionHelper.GetAssemblyAttributeInfo(fullPath, attributeFullName).Returns(assemblyInfo);
+            reflectionHelper.GetAssemblyAttributeInfo(Arg.Any<string>(), Arg.Any<string>()).Returns(assemblyInfo);
             systemFileWrapper.Exists(assemblyPath).Returns(true);
             systemPathWrapper.GetFullPath(assemblyPath).Returns(fullPath);
 
