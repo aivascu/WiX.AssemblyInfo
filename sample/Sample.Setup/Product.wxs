@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?define Manufacturer="$(fileVersion.CompanyName($(var.Sample.TestApp.TargetPath)))"?>
+<?define Manufacturer="Test"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
       xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
   <Product Id="*" Name="Sample.Setup" Language="1033" Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="7BAE8537-9656-46AD-BC17-8DB03C6FC3F4">

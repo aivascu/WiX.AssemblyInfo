@@ -47,12 +47,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <WixExtension Include="WixAssemblyInfoExt">
-      <HintPath>..\packages\WiX.AssemblyInfo.0.0.1\lib\WixAssemblyInfoExt.dll</HintPath>
-      <Name>WixAssemblyInfoExt</Name>
-    </WixExtension>
-  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
