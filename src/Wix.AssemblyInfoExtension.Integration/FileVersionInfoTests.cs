@@ -9,7 +9,7 @@ namespace Wix.AssemblyInfoExtension.Integration
 
         [Test]
         [TestCase(FileVersionPrefix, "ProductName", @".\Sample.TestLib.dll", "Sample.TestLib")]
-        [TestCase(FileVersionPrefix, "ProductVersion", @".\Sample.TestLib.dll", "1.0.0.0")]
+        [TestCase(FileVersionPrefix, "FileDescription", @".\Sample.TestLib.dll", "Sample.TestLib")]
         public void TestFileVersionFunction(string prefix, string function, string assemblyPath, string expectedResult)
         {
             // Arrange
