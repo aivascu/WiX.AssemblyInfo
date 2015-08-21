@@ -27,6 +27,7 @@
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="AppComponent" Guid="C00AEB46-E91A-4DDD-8936-ADEE44A6994C">
         <File Id="TestApp.exe" Name="TestApp.exe" Source="$(var.Sample.TestApp.TargetPath)" Vital="yes" KeyPath="yes" />
+        <File Id="Sample.TestLib.dll" Name="Sample.TestLib.dll" Source="$(var.Sample.TestLib.TargetPath)" Vital="yes" KeyPath="no" />
       </Component>
       <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
       <!-- <Component Id="ProductComponent"> -->

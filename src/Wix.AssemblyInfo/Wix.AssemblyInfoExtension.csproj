@@ -59,7 +59,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="wix">
+    <Reference Include="wix, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WiX.3.9.2\tools\wix.dll</HintPath>
     </Reference>
   </ItemGroup>
