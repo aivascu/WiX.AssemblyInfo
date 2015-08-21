@@ -10,13 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{49041F65-EF29-4E8A-B048-26235211D380}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfoExtension", "Wix.AssemblyInfo\Wix.AssemblyInfoExtension.csproj", "{B08D9E52-612D-4F12-9023-F239D431A06F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfoExtension.Tests", "Wix.AssemblyInfo.Tests\Wix.AssemblyInfoExtension.Tests.csproj", "{D3BAEAE2-5133-4E0B-B8F5-5EBCCCE16237}"
@@ -31,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.TestLib", "..\sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wix.AssemblyInfoExtension.Integration", "Wix.AssemblyInfoExtension.Integration\Wix.AssemblyInfoExtension.Integration.csproj", "{C79FE7CC-B378-47A2-83AA-EC5565FE919B}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Sample.Setup", "..\sample\Sample.Setup\Sample.Setup.wixproj", "{2F4F6E6B-0255-492D-A335-E24774DC3B6F}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Sample.Setup", "..\sample\Sample.Setup\Sample.Setup.wixproj", "{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,16 +94,16 @@ Global
 		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C79FE7CC-B378-47A2-83AA-EC5565FE919B}.Release|x86.Build.0 = Release|Any CPU
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Debug|x86.ActiveCfg = Debug|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Debug|x86.Build.0 = Debug|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Release|Any CPU.ActiveCfg = Release|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Release|Mixed Platforms.Build.0 = Release|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Release|x86.ActiveCfg = Release|x86
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F}.Release|x86.Build.0 = Release|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Debug|x86.ActiveCfg = Debug|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Debug|x86.Build.0 = Debug|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Release|Any CPU.ActiveCfg = Release|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Release|x86.ActiveCfg = Release|x86
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,7 +113,7 @@ Global
 		{898087CC-5AF4-4B8F-A084-4E1F416ABABB} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
 		{FDDB5313-708F-46B8-8F15-87165A05805C} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
 		{C79FE7CC-B378-47A2-83AA-EC5565FE919B} = {BFF33BCC-E8ED-4796-BB2A-A17A9E761A87}
-		{2F4F6E6B-0255-492D-A335-E24774DC3B6F} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
+		{4AFFD31D-4364-45C5-A5D4-F2E71BB7B087} = {A086D0D4-4AA4-4943-B4CB-9902ED4EB65E}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
