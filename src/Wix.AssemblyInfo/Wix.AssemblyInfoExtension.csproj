@@ -65,11 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Wrappers\IAssembly.cs" />
     <Compile Include="Interfaces\Wrappers\IFile.cs" />
     <Compile Include="Interfaces\Wrappers\IFileVersionInfo.cs" />
     <Compile Include="Interfaces\Wrappers\IPath.cs" />
-    <Compile Include="Infrastructure\Wrappers\AssemblyWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ExtensionPrefixes.cs" />
     <Compile Include="Infrastructure\Wrappers\FileVersionInfoWrapper.cs" />
